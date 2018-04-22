@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Informations";
+    var variables = System.Environment.GetEnvironmentVariables();
+    var headers = Context.Request.Headers.OrderBy(x=>x.Key);
+    var r = Context.Request;
+    var c = Context.Connection;
+}
+
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Connection Info</h1>
+</div>
+
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Id</td>
+            <td>@c.Id</td>
+        </tr>
+        <tr>
+            <td>Local Ip Address</td>
+            <td>@c.LocalIpAddress</td>
+        </tr>
+        <tr>
+            <td>Local Port</td>
+            <td>@c.LocalPort</td>
+        </tr>
+        <tr>
+            <td>Remote Ip Address</td>
+            <td>@c.RemoteIpAddress</td>
+        </tr>
+        <tr>
+            <td>Remote Port</td>
+            <td>@c.RemotePort</td>
+        </tr>
+        <tr>
+            <td>Client Certificate</td>
+            <td>@c.ClientCertificate</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Request Headers</h1>
+</div>
+
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Scheme</td>
+            <td>@r.Scheme</td>
+        </tr>
+        <tr>
+            <td>Host</td>
+            <td>@r.Host</td>
+        </tr>
+        <tr>
+            <td>IsHttps</td>
+            <td>@r.IsHttps</td>
+        </tr>
+        @foreach (var key in headers){
+            <tr>
+                <td>@key.Key</td>
+                <td>@key.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Environment Variables</h1>
+</div>
+
+<table class="table table-striped table-hover table-condensed">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(System.Collections.DictionaryEntry v in variables){
+            <tr>
+                <td>@v.Key</td>
+                <td>@v.Value</td>
+            </tr>
+        }
+    </tbody>
+</table>
